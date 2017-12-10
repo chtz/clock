@@ -1,166 +1,168 @@
+<!DOCTYPE html>
 <html>
+
 <head>
-<title>Clock</title>
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-
-<link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
-
+  <title>Clock</title>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Nova+Mono" rel="stylesheet">
 </head>
 
 <style>
-html {
-  background-color: #000000; 
-margin: 0;
-border: 0;
-}
-#clockbox {
+  html {
+    background-color: #000000;
+    margin: 0;
+    border: 0;
+  }
+
+  #clockbox {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
-}
-.clocktxt {
-font-family: 'Nova Mono', monospace;
-font-size: xx-large;
-color: #333333;
-font-weight: bold;
-}
-.clocktxt2 {
-font-family: 'Nova Mono', monospace;
-font-size: xx-large;
-color: white;
-font-weight: bold;
-}
+  }
+
+  .clocktxt {
+    font-family: 'Nova Mono', monospace;
+    font-size: 34pt;
+    color: #333333;
+    font-weight: bold;
+  }
+
+  .clocktxt2 {
+    font-family: 'Nova Mono', monospace;
+    font-size: 34pt;
+    color: white;
+    font-weight: bold;
+  }
 </style>
 
 <body>
-	
-<script type="text/javascript">
-function launchIntoFullscreen(element) {
-  if(element.requestFullscreen) {
-    element.requestFullscreen();
-  } else if(element.mozRequestFullScreen) {
-    element.mozRequestFullScreen();
-  } else if(element.webkitRequestFullscreen) {
-    element.webkitRequestFullscreen();
-  } else if(element.msRequestFullscreen) {
-    element.msRequestFullscreen();
-  }
-}
-
-var alltext = "ESKISTAFÜNF"
-               +"ZEHNZWANZIG"
-               +"DREIVIERTEL"
-               +"VORFUNKNACH"
-               +"HALBAELFÜNF"
-               +"EINSXAMZWEI"
-               +"DREIPMJVIER"
-               +"SECHSNLACHT"
-               +"SIEBENZWÖLF"
-               +"ZEHNEUNKUHR";
-              
-var minutes1 = ["-", 
-               "FÜNF", "ZEHN", "VIERTEL", "ZWANZIG", 
-               "FÜNF",
-               "-", 
-	       "FÜNF",
-               "ZWANZIG", "VIERTEL", "ZEHN", "FÜNF", 
-               "-"];
-var minutes2 = ["-", 
-               "NACH", "NACH", "NACH", "NACH", 
-               "VOR",
-               "-", 
-	       "NACH",
-               "VOR", "VOR", "VOR", "VOR", 
-               "-"]; 
-               
-var minutes3 = ["-", 
-               "-", "-", "-", "-", 
-               "HALB",
-               "HALB", 
-	       "HALB",
-               "-", "-", "-", "-", 
-               "-"];
-               
-var hours = ["ZWÖLF","EINS","ZWEI","DREI","VIER","FÜNF","SECHS","SIEBEN","ACHT","NEUN","ZEHN","ELF","ZWÖLF"];       
-    
-function  highlight(s) {
-  var start = alltext.indexOf(s);
-  if (start == -1) return;
-  for (var i = start; i < start + s.length; i++) {
-  	$("#x" + i).toggleClass('clocktxt clocktxt2');
-  }
-}
-
-function  highlight2(s) {
-  var start = alltext.lastIndexOf(s);
-  if (start == -1) return;
-  for (var i = start; i < start + s.length; i++) {
-  	$("#x" + i).toggleClass('clocktxt clocktxt2');
-  }
-}
-
-function drawclock(){
-  var h = "<table>";
-  h += "<tr><td id='d1' class='clocktxt'>.</td><td>&nbsp;</td><td id='d2' class='clocktxt'>&nbsp;.</td></tr>";
-  h += "<tr><td>&nbsp;</td>";
-  h += "<td><table>"; 
-  for (var row = 0; row < 10; row++) {
-    h += "<tr>";
-    for (var col = 0; col < 11; col++) {
-    	h += "<td id='x"+(row*11+col)+"' class='clocktxt'>&nbsp;"+alltext.substring(row*11+col, row*11+col+1)+"</td>";
+  <script type="text/javascript">
+    function launchIntoFullscreen(element) {
+      if (element.requestFullscreen) {
+        element.requestFullscreen();
+      } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+      } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+      }
     }
-    h += "</tr>";
-  }
-  h += "</table></td>";
-  h += "<td>&nbsp;</td></tr>";
-  h += "<tr><td id='d4' class='clocktxt'>.</td><td>&nbsp;</td><td id='d3' class='clocktxt'>&nbsp;.</td></tr>";
-  h += "</table>";
-  $("#clockbox").html(h);
-  
-  highlight("ES");
-  highlight("IST");
-  
-  var d = new Date();
-  var hh = d.getHours();
-  var mm =d.getMinutes();
-  
-  m = Math.trunc(mm/5);
-  h = hh % 12;
-  
-  if (m > 4) {
-    h = h + 1;
-  }
-  
-  highlight(minutes1[m]);
-  highlight(minutes2[m]);
-  highlight(minutes3[m]);
-  
-  highlight2(hours[h]);
-  
-  if (m == 0) {
-  	highlight2("UHR");
-  }
-  
-  var m2 = mm % 5;
-  if (m2 > 0) {
-    $("#d" + m2).toggleClass('clocktxt clocktxt2');
-  }
-}
 
-$(document).ready(function(){
-  $("#clockbox").click(function(){
-	  launchIntoFullscreen(document.documentElement);
-  });
-  drawclock();
-  setInterval(drawclock, 15000);
-});
-</script>
+    var alltext = "ESKISTAFÜNF"
+      + "ZEHNZWANZIG"
+      + "DREIVIERTEL"
+      + "VORFUNKNACH"
+      + "HALBAELFÜNF"
+      + "EINSXAMZWEI"
+      + "DREIPMJVIER"
+      + "SECHSNLACHT"
+      + "SIEBENZWÖLF"
+      + "ZEHNEUNKUHR";
 
+    var minutes1 = ["-",
+      "FÜNF", "ZEHN", "VIERTEL", "ZWANZIG",
+      "FÜNF",
+      "-",
+      "FÜNF",
+      "ZWANZIG", "VIERTEL", "ZEHN", "FÜNF",
+      "-"];
 
-<div id="clockbox">
-</div>
+    var minutes2 = ["-",
+      "NACH", "NACH", "NACH", "NACH",
+      "VOR",
+      "-",
+      "NACH",
+      "VOR", "VOR", "VOR", "VOR",
+      "-"];
 
+    var minutes3 = ["-",
+      "-", "-", "-", "-",
+      "HALB",
+      "HALB",
+      "HALB",
+      "-", "-", "-", "-",
+      "-"];
+
+    var hours = ["ZWÖLF", "EINS", "ZWEI", "DREI", "VIER", "FÜNF", "SECHS", "SIEBEN", "ACHT", "NEUN", "ZEHN", "ELF", "ZWÖLF"];
+
+    function highlight(s) {
+      var start = alltext.indexOf(s);
+      if (start == -1) return;
+      for (var i = start; i < start + s.length; i++) {
+        $("#x" + i).toggleClass('clocktxt clocktxt2');
+      }
+    }
+
+    function highlight2(s) {
+      var start = alltext.lastIndexOf(s);
+      if (start == -1) return;
+      for (var i = start; i < start + s.length; i++) {
+        $("#x" + i).toggleClass('clocktxt clocktxt2');
+      }
+    }
+
+    function drawclock() {
+      var h = "<table>";
+      h += "<tr><td id='d1' class='clocktxt'>.</td><td>&nbsp;</td><td id='d2' class='clocktxt'>&nbsp;.</td></tr>";
+      h += "<tr><td>&nbsp;</td>";
+      h += "<td><table>";
+      for (var row = 0; row < 10; row++) {
+        h += "<tr>";
+        for (var col = 0; col < 11; col++) {
+          h += "<td id='x" + (row * 11 + col) + "' class='clocktxt'>&nbsp;" + alltext.substring(row * 11 + col, row * 11 + col + 1) + "</td>";
+        }
+        h += "</tr>";
+      }
+      h += "</table></td>";
+      h += "<td>&nbsp;</td></tr>";
+      h += "<tr><td id='d4' class='clocktxt'>.</td><td>&nbsp;</td><td id='d3' class='clocktxt'>&nbsp;.</td></tr>";
+      h += "</table>";
+      $("#clockbox").html(h);
+
+      highlight("ES");
+      highlight("IST");
+
+      var d = new Date();
+      var hh = d.getHours();
+      var mm = d.getMinutes();
+
+      m = Math.trunc(mm / 5);
+      h = hh % 12;
+
+      if (m > 4) {
+        h = h + 1;
+      }
+
+      highlight(minutes1[m]);
+      highlight(minutes2[m]);
+      highlight(minutes3[m]);
+
+      highlight2(hours[h]);
+
+      if (m == 0) {
+        highlight2("UHR");
+      }
+
+      var m2 = mm % 5;
+      if (m2 > 0) {
+        for (var i = 1; i <= m2; i++) {
+          $("#d" + i).toggleClass('clocktxt clocktxt2');
+        }
+      }
+    }
+
+    $(document).ready(function () {
+      $("#clockbox").click(function () {
+        launchIntoFullscreen(document.documentElement);
+      });
+      drawclock();
+      setInterval(drawclock, 15000);
+    });
+  </script>
+
+  <div id="clockbox">
+  </div>
 </body>
 </html>
